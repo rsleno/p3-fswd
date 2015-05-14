@@ -6,11 +6,11 @@ h2              { font-size: 1.2em; }
 
 p, dd, dt               { padding-left: 10px; padding-right: 10px; color: #333;}
 
-a {text-decoration: none; background-color:#CC0000; color:#FFF; padding: 10px; font-size: .75em; border: 1px solid; border-radius: 5px; border-color: #999999;}
+a {text-decoration: none;}
 
 .pane {position:absolute; left: 25%; border: 2px solid;
     border-radius: 25px; padding: 15px; margin: 5px; border-color: #999999; background-color: #EEEEEE }
-.header         {left:50%; text-align: center;}
+.header         {left:50%; text-align: center; width: 650px;}
 .name {width:50%;display: inline-block; float: left; font-weight: bold; }
 .description {font-size: .65em; background-color: #CCC; padding-bottom: 2px; border: 1px solid; border-radius: 10px; border-color: #999999; }
 .price {text-align: right; width:50%; float: right; font-weight: bold;}
