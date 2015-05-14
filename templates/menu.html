@@ -9,7 +9,7 @@
 	<div class="header">
 		<h1>{{ restaurant.name }}</h1>
 	</div>
-
+	<a href="{{ url_for('showRestaurants') }}">Home</a>
 	<a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}">Create new item</a>
 	
 	<div class="flash">
