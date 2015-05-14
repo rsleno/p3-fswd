@@ -24,6 +24,22 @@ def menuItemJSON(restaurant_id, menu_id):
 	return jsonify(MenuItem=item.serialize)
 
 @app.route('/')
+@app.route('/restaurants/')
+def showRestaurants():
+	restaurants = session.query(Restaurant).all()
+	return render_template('restaurants.html', restaurants = restaurants)
+
+@app.route('/restaurant/new', methods = ['GET', 'POST'])
+def newRestaurant():
+	if request.method == 'POST':
+		newRestaurant = Restaurant(name = request.form['name'])
+		session.add(newRestaurant)
+		session.commit()
+		flash("new restaurant created!")
+		return redirect(url_for('showRestaurants'))
+	else:
+		return render_template('newRestaurant.html')
+
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
 	restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
