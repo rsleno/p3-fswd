@@ -9,11 +9,23 @@ p, dd, dt               { padding-left: 10px; padding-right: 10px; color: #333;}
 a {text-decoration: none;}
 
 .pane {position:absolute; left: 25%; border: 2px solid;
-    border-radius: 25px; padding: 15px; margin: 5px; border-color: #999999; background-color: #EEEEEE }
-.header         {left:50%; text-align: center; width: 650px;}
-.name {width:50%;display: inline-block; float: left; font-weight: bold; }
-.description {font-size: .65em; background-color: #CCC; padding-bottom: 2px; border: 1px solid; border-radius: 10px; border-color: #999999; }
-.price {text-align: right; width:50%; float: right; font-weight: bold;}
+    border-radius: 5px; padding: 15px; margin: 5px; border-color: #999999; background-color: #EEEEEE }
+.header {left:50%; text-align: center; width: 650px;}
+
+
+.rlist { padding: 10px; margin: 2px; border: 1px solid #999; }
+.rlist :hover {background-color: #AEA}
+.rname { width: 75%; float:left; }
+.rname a { font-size: 1.0em; color: #333; }
+.rlinks { text-align: right; }
+.rlinks a { font-size: 0.7em; color: #999; }
+
+.name { width:50%;display: inline-block; float: left; font-weight: bold; }
+.description { font-size: .65em; background-color: #CCC; padding-bottom: 2px; border: 1px solid; border-radius: 10px; border-color: #999999; }
+.price { text-align: right; width:50%; float: right; font-weight: bold; }
 .editdeletepane{}
 
-.flash          { background: #cee5F5; }
+.flash { background: #cee5F5; }
+
+
+
