@@ -25,15 +25,15 @@
 	</div>
 	
 	{% for restaurant in restaurants %}
-		<div class = "rlist">
-			<div class = "rname">
-				<a href="{{ url_for('restaurantMenu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a>
-			</div>
-			<div class = "rlinks">
-				<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a>
-				<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
-			</div>
+	<ul class = "rlist">
+		<li><a href="{{ url_for('restaurantMenu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a></li>
+
+		<div class="rlinks">
+			<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a>
+			<a href="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
 		</div>
+
+	</ul>
 	{% endfor %}
 </div>
 </body>
