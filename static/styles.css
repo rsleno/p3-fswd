@@ -1,10 +1,10 @@
-body            { font-family: sans-serif; background-color: #333333}
+body            { font-family: sans-serif; background-color: #999}
 h1, h2, h3, h4       { color: #333; }
 h1, h2          { font-family: 'Georgia', serif; margin: 0; }
 h1              { border-bottom: 2px solid #333; }
 h2              { font-size: 1.2em; }
 
-p, dd, dt               { padding-left: 10px; padding-right: 10px; color: #333;}
+p, dd, dt { padding-left: 10px; padding-right: 10px; color: #333;}
 
 a {text-decoration: none;}
 
@@ -13,13 +13,13 @@ a {text-decoration: none;}
 .header {left:50%; text-align: center; width: 650px;}
 
 
-.rlist { padding: 10px; margin: 2px; border: 1px solid #999; }
-.rlist :hover {background-color: #AEA}
-.rname { width: 75%; float:left; }
+.rlist { list-style-type: none; padding: 10px; margin: 2px; border: 1px solid #999; }
+.rlinks { text-align: right; font-size: 0.8em; }
+/*.rname { width: 75%; float:left; }
 .rname a { font-size: 1.0em; color: #333; }
-.rlinks { text-align: right; }
-.rlinks a { font-size: 0.7em; color: #999; }
 
+.rlinks a { font-size: 0.7em; color: #999; }
+*/
 .name { width:50%;display: inline-block; float: left; font-weight: bold; }
 .description { font-size: .65em; background-color: #CCC; padding-bottom: 2px; border: 1px solid; border-radius: 10px; border-color: #999999; }
 .price { text-align: right; width:50%; float: right; font-weight: bold; }
