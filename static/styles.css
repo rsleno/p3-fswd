@@ -16,7 +16,7 @@ a {text-decoration: none;}
     background: #F8F8F8;
     margin-top: 30px; 
     margin-bottom: 30px;
-    padding: 20px;
+    /*padding: 20px;*/
     font: 12px Arial, Helvetica, sans-serif;
     color: #666;
     border-radius: 5px;
@@ -28,14 +28,14 @@ a {text-decoration: none;}
     font: 28px Arial, Helvetica, sans-serif;
     padding: 20px 0px 20px 40px;
     display: block;
-    margin: -20px -20px 10px -20px;
+    margin: 0px 0px 0px 0px;
     color: #FFF;
     background: #DD6031;
     text-shadow: 1px 1px 1px #949494;
     border-radius: 5px 5px 0px 0px;
     -webkit-border-radius: 5px 5px 0px 0px;
     -moz-border-radius: 5px 5px 0px 0px;
-    border-bottom:1px solid #311E10;
+    border-bottom:1px solid #FFF;
 
 }
 
@@ -45,6 +45,40 @@ a {text-decoration: none;}
     color: #ECE4B7;
 }
 
+.menu {
+    background-color: #311E10;
+    height: 25px;
+    display: block;
+    margin: -0px 0px 30px 0px;
+    text-align: center;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.menu li {
+    float: left;
+}
+
+.menu a {
+	/*background-color: #EABE7C;*/
+    display: block;
+    color: #FFF;
+    font-size: 14px;
+    padding-top: 4px;
+    height: 20px;
+    width: 150px;
+    border-right: 1px solid #FFF;	
+}
+
+.menu a:hover {
+	background-color: #DD6031;
+	border-bottom: 3px solid #311E10;
+}
 
 .pane form{
 	padding: 20px 20px;
@@ -109,8 +143,7 @@ a {text-decoration: none;}
 	list-style-type: none;
 	padding: 15px;
 	margin: 5px;
-	background-color: #EEE;
-	border: 1px solid #D9DD92;
+	border: 1px solid #DDD;
 	border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -118,27 +151,12 @@ a {text-decoration: none;}
 
 .rlist .rname {
 	font-size: 16px;
+	color: #000;
 	float: left;
 }
 
 .rlinks { 
 	text-align: right;
-}
-
-.menu {
-	/*background-color: black;
-    padding: 0px 0px 10px 20px;*/
-    background-color: black;
-    display: block;
-    margin: 10px 0px 10px -20px;
-}
-
-.menuitem {
-	border-right: 1px solid #AAA;
-    padding: 8px 15px 8px 15px;
-    color: #FFF;
-    text-shadow: 1px 1px 1px #949494;
-    cursor: pointer;
 }
 
 /*.pane {position:absolute; left: 25%; border: 2px solid;
