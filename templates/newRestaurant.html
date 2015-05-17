@@ -9,6 +9,11 @@
 	<div class="header">
 		<h1>New Restaurant</h1>
 	</div>
+	<div class="menu">
+		<ul>
+			<li><a href="{{ url_for('showRestaurants') }}">Home</a></li>
+		</ul>
+	</div>
 	<form action="{{ url_for('newRestaurant') }}" method="post">
 		<label>Name:</label>
 		<input type="text" size="30" name="name" placeholder="Restaurant name" />

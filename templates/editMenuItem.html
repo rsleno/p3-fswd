@@ -9,6 +9,13 @@
 	<div class="header">
 		<h1>Edit {{ item.name }}<span>{{ restaurant.name }}</span></h1>
 	</div>
+	<div class="menu">
+		<ul>
+			<li><a href="{{ url_for('showRestaurants') }}">Home</a></li>
+			<li><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
+			<li><a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}">Create new item</a></li>
+		</ul>
+	</div>
 	<form action="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id) }}" method="post">
 		<label>Name:</label>
 		<input type="text" size="30" name="name" placeholder="{{ item.name }}" />

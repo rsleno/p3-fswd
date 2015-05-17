@@ -9,8 +9,13 @@
 	<div class="header">
 		<h1>{{ restaurant.name }}</h1>
 	</div>
-	<a href="{{ url_for('showRestaurants') }}">Home</a>
-	<a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}">Create new item</a>
+	<div class="menu">
+		<ul>
+			<li><a href="{{ url_for('showRestaurants') }}">Home</a></li>
+			<li><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
+			<li><a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}">Create new item</a></li>
+		</ul>
+	</div>
 	
 	<div class="flash">
 		{% with messages = get_flashed_messages() %}
