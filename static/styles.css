@@ -1,22 +1,11 @@
-body            { background-color: #DDD}
-/*h1, h2, h3, h4       { color: #333; }
-h1, h2          { font-family: 'Georgia', serif; margin: 0; }
-h1              { border-bottom: 2px solid #333; }
-h2              { font-size: 1.2em; }
-
-p, dd, dt { padding-left: 10px; padding-right: 10px; color: #333;}
-*/
+body { background-color: #DDD;}
 a {text-decoration: none;}
 
-
 .pane{
-	margin-left:auto;
-    margin-right:auto;
-    max-width: 850px;
+	margin-left:auto; margin-right:auto;
+    max-width: 750px;
     background: #F8F8F8;
-    margin-top: 30px; 
-    margin-bottom: 30px;
-    /*padding: 20px;*/
+    margin-top: 30px; margin-bottom: 30px;
     font: 12px Arial, Helvetica, sans-serif;
     color: #666;
     border-radius: 5px;
@@ -36,7 +25,13 @@ a {text-decoration: none;}
     -webkit-border-radius: 5px 5px 0px 0px;
     -moz-border-radius: 5px 5px 0px 0px;
     border-bottom:1px solid #FFF;
+}
 
+.pane h2 {
+	font: 22px Arial, Helvetica, sans-serif;
+	display: block;
+	margin: 15px 25px;
+	border-bottom: 1px dashed #666;
 }
 
 .pane h1>span {
@@ -45,27 +40,26 @@ a {text-decoration: none;}
     color: #ECE4B7;
 }
 
-.menu {
+.pane .menu {
     background-color: #311E10;
     height: 25px;
     display: block;
-    margin: -0px 0px 30px 0px;
+    margin: 0px 0px 0px 0px;
     text-align: center;
 }
 
-.menu ul {
+.pane .menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
-.menu li {
+.pane .menu li {
     float: left;
 }
 
-.menu a {
-	/*background-color: #EABE7C;*/
+.pane .menu a {
     display: block;
     color: #FFF;
     font-size: 14px;
@@ -75,13 +69,13 @@ a {text-decoration: none;}
     border-right: 1px solid #FFF;	
 }
 
-.menu a:hover {
+.pane .menu a:hover {
 	background-color: #DD6031;
 	border-bottom: 3px solid #311E10;
 }
 
 .pane form{
-	padding: 20px 20px;
+	padding: 80px 40px;
 }
 
 .pane form p{
@@ -107,7 +101,7 @@ a {text-decoration: none;}
     outline: 0;
     -webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
     box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
-    font: normal 14px/14px Arial, Helvetica,	 sans-serif;
+    font: normal 14px/14px Arial, Helvetica, sans-serif;
 }
 
 .pane form .choice{
@@ -139,103 +133,59 @@ a {text-decoration: none;}
 	background-color: #CCC;
 }
 
-.rlist { 
+.pane .container {
+	padding-bottom: 40px;
+}
+
+.pane .list { 
 	list-style-type: none;
 	padding: 15px;
-	margin: 5px;
+	margin: 5px 25px;
 	border: 1px solid #DDD;
+	background-color: #FFF;
 	border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
 
-.rlist .rname {
+.pane .list li {
+	padding-bottom: 10px;
+}
+
+.pane .list .rname {
 	font-size: 16px;
 	color: #000;
-	float: left;
+	margin-bottom: 10px;
 }
 
-.rlinks { 
-	text-align: right;
+.pane .list .miname {
+	font-size: 16px;
+	color: #000;
+	margin-bottom: 5px;
+	float: left
 }
 
-/*.pane {position:absolute; left: 25%; border: 2px solid;
-    border-radius: 5px; padding: 15px; margin: 5px; border-color: #999999; background-color: #EEEEEE }*/
-/*.header {left:50%; text-align: center; width: 650px;}*/
-
-
-
-
-/*.rname { width: 75%; float:left; }
-.rname a { font-size: 1.0em; color: #333; }
-
-.rlinks a { font-size: 0.7em; color: #999; }
-*/
-.name { width:50%;display: inline-block; float: left; font-weight: bold; }
-.description { font-size: .65em; background-color: #CCC; padding-bottom: 2px; border: 1px solid; border-radius: 10px; border-color: #999999; }
-.price { text-align: right; width:50%; float: right; font-weight: bold; }
-.editdeletepane{}
-
-.flash { background: #cee5F5; }
-
-
-
-/*######## Smart Green ########
-
-.smart-green h1>span {
-    display: block;
-    font-size: 11px;
-    color: #FFF;
+.pane .list .miprice {
+	font-size: 16px;
+	text-align:right;
 }
 
-.smart-green label {
-    display: block;
-    margin: 0px 0px 5px;
+.pane .list .midescription {
+	padding-left: 10px;
+	margin-bottom: 10px;
+	font-style: italic;
+	clear: both;
 }
-.smart-green label>span {
-    float: left;
-    margin-top: 10px;
-    color: #5E5E5E;
+
+.pane .list .links a{ 
+	/*text-align: right;*/
+	color: #DD6031;
 }
-.smart-green input[type="text"], .smart-green input[type="email"], .smart-green textarea, .smart-green select {
-    color: #555;
-    height: 30px;
-    line-height:15px;
-    width: 100%;
-    padding: 0px 0px 0px 10px;
-    margin-top: 2px;
-    border: 1px solid #E5E5E5;
-    background: #FBFBFB;
-    outline: 0;
-    -webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
-    box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
-    font: normal 14px/14px Arial, Helvetica, sans-serif;
+
+.pane .flash { 
+	margin: 25px;
+	color: #DD6031; 
+	font-size: 12px;
+
 }
-.smart-green textarea{
-    height:100px;
-    padding-top: 10px;
-}
-.smart-green select {
-    background: url('down-arrow.png') no-repeat right, -moz-linear-gradient(top, #FBFBFB 0%, #E9E9E9 100%);
-    background: url('down-arrow.png') no-repeat right, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FBFBFB), color-stop(100%,#E9E9E9));
-   appearance:none;
-    -webkit-appearance:none; 
-   -moz-appearance: none;
-    text-indent: 0.01px;
-    text-overflow: '';
-    width:100%;
-    height:30px;
-}
-.smart-green .button {
-    background-color: #9DC45F;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-border-radius: 5px;
-    border: none;
-    padding: 10px 25px 10px 25px;
-    color: #FFF;
-    text-shadow: 1px 1px 1px #949494;
-}
-.smart-green .button:hover {
-    background-color:#80A24A;
-}*/
+
