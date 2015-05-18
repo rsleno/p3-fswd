@@ -26,19 +26,21 @@
 		{% endif %}
 		{% endwith %}
 	</div>
-	
-	{% for restaurant in restaurants %}
-	<ul class = "rlist">
-		<li><a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
+	<div class="container">
+		<h2>Restaurant list</h2>
+		{% for restaurant in restaurants %}
+		<ul class = "list">
+			<li><a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
 
-		<div class="rlinks">
-			<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="button submit">Menu</a>
-			<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}" class="button submit">Edit</a>
-			<a href="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" class="button submit">Delete</a>
-		</div>
+			<div class="links">
+				<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a> |
+				<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a> | 
+				<a href="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
+			</div>
 
-	</ul>
-	{% endfor %}
+		</ul>
+		{% endfor %}
+	</div>
 </div>
 </body>
 </html>
