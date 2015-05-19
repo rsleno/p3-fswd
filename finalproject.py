@@ -90,9 +90,7 @@ def gconnect():
 		response.headers['Content-Type'] = 'application/json'
 		return response
 	stored_credentials = login_session.get('credentials')
-	#print "stored cred", stored_credentials
 	stored_gplus_id = login_session.get('gplus_id')
-	#print "gplus_id", stored_gplus_id
 	if stored_credentials is not None and gplus_id == stored_gplus_id:
 		response = make_response(json.dumps('Current user is already connected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
@@ -111,10 +109,9 @@ def gconnect():
 	output += '<h2>Welcome, '
 	output += login_session['username']
 	output += '!</h2>'
-	print output
-	#output += '<img src="'
-	#output += login_session['picture']
-	#output += '" style = "width: 300px; height:300px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;">'
+	output += '<img src="'
+	output += login_session['picture']
+	output += '" style = "width: 300px; height:300px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;">'
 	flash ("you are now logged in as %s" % login_session['username'])
 	return output 
 
