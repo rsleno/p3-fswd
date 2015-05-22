@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flask project</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles.css') }}" />
+</head>
+<body>
+<div class="pane">
+	<div class="header">
+		<h1>Restaurants</h1>
+	</div>
+	<div class="menu">
+		<ul>
+			<li><a href="{{ url_for('showRestaurants') }}">Home</a></li>
+		</ul>
+	</div>
+	<div class="flash">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li><strong>{{ message }}</strong></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
+	</div>
+	<div class="container">
+		<h2>Restaurant list</h2>
+		{% for restaurant in restaurants %}
+		<ul class = "list">
+			<li><a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
+
+			<div class="links">
+				<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a>
+			</div>
+
+		</ul>
+		{% endfor %}
+	</div>
+</div>
+</body>
+</html>
