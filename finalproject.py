@@ -10,9 +10,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 app = Flask(__name__)
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
+from database_setup import Base, Restaurant, MenuItem, User
 
 from flask import session as login_session
 import random, string
@@ -105,6 +105,11 @@ def gconnect():
 	login_session['picture'] = data["picture"]
 	login_session['email'] = data["email"]
 
+	user_id = getUserID(login_session['email'])
+	if not user_id:
+		user_id = createUser(login_session)
+	login_session['user_id'] = user_id
+
 	output = ''
 	output += '<h2>Welcome, '
 	output += login_session['username']
@@ -144,15 +149,19 @@ def menuItemJSON(restaurant_id, menu_id):
 @app.route('/restaurants/')
 def showRestaurants():
 	""" Show all restaurants """
-	restaurants = session.query(Restaurant).all()
-	return render_template('restaurants.html', restaurants=restaurants)
+	restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)).all()
+	if 'username' not in login_session:
+		return render_template('publicRestaurants.html', restaurants=restaurants)
+	else:
+		return render_template('restaurants.html', restaurants=restaurants)
 
 
 @app.route('/restaurant/new', methods=['GET', 'POST'])
 def newRestaurant():
 	""" Create a new restaurant """
 	if request.method == 'POST':
-		newRestaurant = Restaurant(name=request.form["name"])
+		newRestaurant = Restaurant(name=request.form["name"],
+			user_id=login_session['user_id'])
 		session.add(newRestaurant)
 		session.commit()
 		flash("%s restaurant succesfully created" % request.form["name"])
@@ -195,11 +204,17 @@ def showMenu(restaurant_id):
 	restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 	courses = session.query(MenuItem).filter_by(
 		restaurant_id=restaurant_id).group_by(MenuItem.course).all()
+	creator = getUserInfo(restaurant.user_id)
 	items = {}
 	for course in courses:
 		items[course.course] = session.query(MenuItem).filter_by(
 			restaurant_id=restaurant_id, course=course.course).all()
-	return render_template('menu.html', restaurant=restaurant, items=items, courses=courses)
+		if 'username' not in login_session or creator.id != login_session['user_id']:
+			return render_template('publicmenu.html', restaurant=restaurant, 
+				items=items, courses=courses, creator=creator)
+		else:		
+			return render_template('menu.html', restaurant=restaurant, 
+				items=items, courses=courses, creator=creator)
 
 
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
@@ -208,7 +223,9 @@ def newMenuItem(restaurant_id):
 	restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 	if request.method == 'POST':
 		newItem = MenuItem(
-			name=request.form["name"], restaurant_id=restaurant_id)
+			name=request.form["name"], 
+			restaurant_id=restaurant_id,
+			user_id=restaurant.user_id)
 		session.add(newItem)
 		session.commit()
 		flash("%s menu item sucessfully created" % request.form["name"])
@@ -252,6 +269,28 @@ def deleteMenuItem(restaurant_id, menu_id):
 	else:
 		return render_template('deleteMenuItem.html', restaurant=restaurant, item=item)
 	return "page to delete item from menu"
+
+
+def getUserID(email):
+	try:
+		user = session.query(User).filter_by(email=email).one()
+		return user.id
+	except:
+		return None
+
+
+def getUserInfo(user_id):
+	user = session.query(User).filter_by(id=user_id).one()
+	return user
+
+def createUser(login_session):
+	newUser = User(name = login_session['username'], 
+		email = login_session['email'],
+		picture = login_session['picture'])
+	session.add(newUser)
+	session.commit()
+	user = session.query(User).filter_by(email = login_session['email']).one()
+	return user.id
 
 
 if __name__ == '__main__':
