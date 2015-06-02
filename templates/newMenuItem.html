@@ -11,8 +11,9 @@
 	</div>
 	<div class="menu">
 		<ul>
-			<li><a href="{{ url_for('showRestaurants') }}">Home</a></li>
-			<li><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
+			<li class="left"><a href="{{ url_for('showRestaurants') }}">Home</a></li>
+			<li class="left"><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
+			<li class="right"><a href="{{ url_for('gdisconnect') }}">Unlog</a></li>
 		</ul>
 	</div>
 	<form action="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" method="post">
