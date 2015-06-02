@@ -55,18 +55,23 @@ a {text-decoration: none;}
     overflow: hidden;
 }
 
-.pane .menu li {
+.pane .menu li.left {
     float: left;
+    border-right: 1px solid #FFF;
+}
+
+.pane .menu li.right{
+    float: right;
+    border-left: 1px solid #FFF;
 }
 
 .pane .menu a {
-    display: block;
-    color: #FFF;
-    font-size: 14px;
-    padding-top: 4px;
     height: 20px;
     width: 150px;
-    border-right: 1px solid #FFF;	
+    padding-top: 4px;
+    display: block;
+    color: #FFF;
+    font-size: 14px;	
 }
 
 .pane .menu a:hover {
@@ -135,6 +140,10 @@ a {text-decoration: none;}
 
 .pane .container {
 	padding-bottom: 40px;
+}
+
+.pane .login {
+    padding: 30px;
 }
 
 .pane .list { 
