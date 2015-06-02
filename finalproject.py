@@ -202,19 +202,15 @@ def deleteRestaurant(restaurant_id):
 def showMenu(restaurant_id):
 	""" Show restaurant menu restaurant_id given """
 	restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-	courses = session.query(MenuItem).filter_by(
-		restaurant_id=restaurant_id).group_by(MenuItem.course).all()
 	creator = getUserInfo(restaurant.user_id)
-	items = {}
-	for course in courses:
-		items[course.course] = session.query(MenuItem).filter_by(
-			restaurant_id=restaurant_id, course=course.course).all()
-		if 'username' not in login_session or creator.id != login_session['user_id']:
-			return render_template('publicmenu.html', restaurant=restaurant, 
-				items=items, courses=courses, creator=creator)
-		else:		
-			return render_template('menu.html', restaurant=restaurant, 
-				items=items, courses=courses, creator=creator)
+	items = session.query(MenuItem).filter_by(
+		restaurant_id=restaurant_id).all()
+	if 'username' not in login_session or creator.id != login_session['user_id']:
+		return render_template('publicmenu.html', restaurant=restaurant, 
+			items=items, creator=creator)
+	else:		
+		return render_template('menu.html', restaurant=restaurant, 
+			items=items, creator=creator)
 
 
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
@@ -225,7 +221,10 @@ def newMenuItem(restaurant_id):
 		newItem = MenuItem(
 			name=request.form["name"], 
 			restaurant_id=restaurant_id,
-			user_id=restaurant.user_id)
+			user_id=restaurant.user_id,
+			description = request.form["description"],
+			course = request.form["course"],
+			price = request.form["price"])
 		session.add(newItem)
 		session.commit()
 		flash("%s menu item sucessfully created" % request.form["name"])
