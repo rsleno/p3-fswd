@@ -28,26 +28,70 @@
 		{% endwith %}
 	</div>
 	<div class="container">
-		{% for course in courses %}
-			<h2>{{ course.course }}</h2>
-			{% for item in items[course.course] %}
+		<h2>Appetizers</h2>
+		{% for item in items %}
+			{% if item.course == 'Appetizer' %}
 			<ul class="list">
 				<li>
 					<div class="miname">{{ item.name }}</div>
 					<div class="miprice">{{ item.price }}</div>
-					<div class="midescription">{{ item.description }}</div>
-					
+					<div class="midescription">{{ item.description }}</div>						
 				</li>
 				<div class="links">
 					<a href='{{url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Edit</a> |
 					<a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Delete</a>
 				</div>
 			</ul>
-			{% endfor %}
-			</ul><br/>
+			{% endif %}
 		{% endfor %}
-			
-		
+		<h2>Entrees</h2>
+		{% for item in items %}
+			{% if item.course == 'Entree' %}
+			<ul class="list">
+				<li>
+					<div class="miname">{{ item.name }}</div>
+					<div class="miprice">{{ item.price }}</div>
+					<div class="midescription">{{ item.description }}</div>						
+				</li>
+				<div class="links">
+					<a href='{{url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Edit</a> |
+					<a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Delete</a>
+				</div>
+			</ul>
+			{% endif %}
+		{% endfor %}
+		<h2>Desserts</h2>
+		{% for item in items %}
+			{% if item.course == 'Dessert' %}
+			<ul class="list">
+				<li>
+					<div class="miname">{{ item.name }}</div>
+					<div class="miprice">{{ item.price }}</div>
+					<div class="midescription">{{ item.description }}</div>						
+				</li>
+				<div class="links">
+					<a href='{{url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Edit</a> |
+					<a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Delete</a>
+				</div>
+			</ul>
+			{% endif %}
+		{% endfor %}
+		<h2>Beverages</h2>
+		{% for item in items %}
+			{% if item.course == 'Beverage' %}
+			<ul class="list">
+				<li>
+					<div class="miname">{{ item.name }}</div>
+					<div class="miprice">{{ item.price }}</div>
+					<div class="midescription">{{ item.description }}</div>						
+				</li>
+				<div class="links">
+					<a href='{{url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Edit</a> |
+					<a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}'>Delete</a>
+				</div>
+			</ul>
+			{% endif %}
+		{% endfor %}
 	</div>
 </div>
 </body>
