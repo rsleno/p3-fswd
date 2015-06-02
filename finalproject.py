@@ -51,11 +51,13 @@ def gdisconnect():
 		del login_session['picture']
 		response = make_response(json.dumps('Succesfully disconnected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
-		return response
+		flash ('Succesfully disconnected') 
+		return redirect(url_for('showRestaurants'))
 	else:
 		response = make_response('Failed to revoke token for given user', 400)
 		response.headers['Content-Type'] = 'application/json'
-		return response
+		flash ('Failed to revoke token for given user') 
+		return redirect(url_for('showRestaurants'))
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -111,12 +113,12 @@ def gconnect():
 	login_session['user_id'] = user_id
 
 	output = ''
-	output += '<h2>Welcome, '
+	output += 'Welcome, '
 	output += login_session['username']
-	output += '!</h2>'
+	output += '!<br/>'
 	output += '<img src="'
 	output += login_session['picture']
-	output += '" style = "width: 300px; height:300px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;">'
+	output += '" style = "width: 32px; height: 32px; border-radius: 16px; -webkit-border-radius: 16px; -moz-border-radius: 16px;">'
 	flash ("you are now logged in as %s" % login_session['username'])
 	return output 
 
