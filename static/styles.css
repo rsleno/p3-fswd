@@ -146,6 +146,11 @@ a {text-decoration: none;}
     padding: 30px;
 }
 
+.pane .loginsuccess {
+    text-align: center;
+    font-size: 14px;
+}
+
 .pane .list { 
 	list-style-type: none;
 	padding: 15px;
