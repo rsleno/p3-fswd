@@ -44,7 +44,7 @@
 				    	contentType: 'application/octet-stream; charset=utf-8',
 				    	success: function(result) {
 					        if (result) {
-					        	$('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+					        	$('#result').html('<div class="loginsuccess">'+ result + '</br></br>Redirecting...</div>')
 					        	setTimeout(function() {
 					        	window.location.href = "/restaurants";}, 4000);
 					    	} else if (authResult['error']) {
