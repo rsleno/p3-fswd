@@ -32,11 +32,12 @@
 		{% for restaurant in restaurants %}
 		<ul class = "list">
 			<li><a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
-
 			<div class="links">
-				<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a> |
-				<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a> | 
-				<a href="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
+				<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a>
+				{% if restaurant.user_id == login_session %} |
+					<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a> | 
+					<a href="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
+				{% endif %}
 			</div>
 
 		</ul>
