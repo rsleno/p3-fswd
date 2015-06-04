@@ -115,10 +115,10 @@ def gconnect():
 	output = ''
 	output += 'Welcome, '
 	output += login_session['username']
-	output += '!<br/>'
+	output += '!<br/><br/>'
 	output += '<img src="'
 	output += login_session['picture']
-	output += '" style = "width: 32px; height: 32px; border-radius: 16px; -webkit-border-radius: 16px; -moz-border-radius: 16px;">'
+	output += '" style = "width: 64px; height: 64px; border-radius: 32px; -webkit-border-radius: 32px; -moz-border-radius: 32px;">'
 	flash ("you are now logged in as %s" % login_session['username'])
 	return output 
 
@@ -155,7 +155,7 @@ def showRestaurants():
 	if 'username' not in login_session:
 		return render_template('publicRestaurants.html', restaurants=restaurants)
 	else:
-		return render_template('restaurants.html', restaurants=restaurants)
+		return render_template('restaurants.html', restaurants=restaurants, login_session=login_session['user_id'])
 
 
 @app.route('/restaurant/new', methods=['GET', 'POST'])
