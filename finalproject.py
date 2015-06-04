@@ -176,6 +176,10 @@ def newRestaurant():
 def editRestaurant(restaurant_id):
 	""" Edit restaurant """
 	restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+	if 'username' not in login_session:
+		return redirect('/login')
+	if restaurant.user_id != login_session['user_id']:
+		return "<script>function myFunction() {alert('You are not authorized to perform this action'); window.location = '/'}</script><body onload='myFunction()'>"
 	if request.method == 'POST':
 		if request.form["name"]:
 			restaurant.name = request.form["name"]
@@ -191,6 +195,10 @@ def editRestaurant(restaurant_id):
 def deleteRestaurant(restaurant_id):
 	""" Delete restaurant """
 	restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+	if 'username' not in login_session:
+		return redirect('/login')
+	if restaurant.user_id != login_session['user_id']:
+		return "<script>function myFunction() {alert('You are not authorized to perform this action'); window.location = '/'}</script><body onload='myFunction()'>"
 	if request.method == 'POST':
 		session.delete(restaurant)
 		session.commit()
