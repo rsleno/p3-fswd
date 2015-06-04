@@ -32,6 +32,66 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
+@app.route('/fbdisconnect')
+def fbdisconnect():
+    facebook_id = login_session['facebook_id']
+    url = 'https://graph.facebook.com/%s/permissions' % facebook_id
+    h = httplib2.Http()
+    result = h.request(url, 'DELETE')[1]
+    del login_session['username']
+    del login_session['email']
+    del login_session['picture']
+    del login_session['user_id']
+    del login_session['facebook_id']
+    flash ('Succesfully disconnected')
+    return redirect(url_for('showRestaurants'))
+    
+@app.route('/fbconnect', methods=['POST'])
+def fbconnect():
+    if request.args.get('state') != login_session['state']:
+        response = make_response(json.dumps('Invalid state parameter.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+    access_token = request.data
+    app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
+        'web']['app_id']
+    app_secret = json.loads(
+        open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
+        app_id, app_secret, access_token)
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[1]
+    userinfo_url = "https://graph.facebook.com/v2.2/me"
+    token = result.split("&")[0]
+    url = 'https://graph.facebook.com/v2.2/me?%s' % token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[1]
+    data = json.loads(result)
+    login_session['provider'] = 'facebook'
+    login_session['username'] = data["name"]
+    login_session['email'] = data["email"]
+    login_session['facebook_id'] = data["id"]
+    stored_token = token.split("=")[1]
+    login_session['access_token'] = stored_token
+    url = 'https://graph.facebook.com/v2.2/me/picture?%s&redirect=0&height=200&width=200' % token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[1]
+    data = json.loads(result)
+    login_session['picture'] = data["data"]["url"]
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+    output = ''
+    output += 'Welcome, '
+    output += login_session['username']
+    output += '!<br/><br/>'
+    output += '<img src="'
+    output += login_session['picture']
+    output += ' " style = "width: 64px; height: 64px;border-radius: 32px;-webkit-border-radius: 32px;-moz-border-radius: 32px;"> '
+    flash("Now logged in as %s" % login_session['username'])
+    return output
+
 @app.route('/gdisconnect')
 def gdisconnect():
 	credentials = login_session.get('credentials')
@@ -57,7 +117,7 @@ def gdisconnect():
 		response = make_response('Failed to revoke token for given user', 400)
 		response.headers['Content-Type'] = 'application/json'
 		flash ('Failed to revoke token for given user') 
-		return redirect(url_for('showRestaurants'))
+		return redirect(url_for('showLogin'))
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
