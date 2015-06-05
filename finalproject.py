@@ -38,13 +38,24 @@ def fbdisconnect():
     url = 'https://graph.facebook.com/%s/permissions' % facebook_id
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
-    del login_session['username']
-    del login_session['email']
-    del login_session['picture']
-    del login_session['user_id']
-    del login_session['facebook_id']
-    flash ('Succesfully disconnected')
-    return redirect(url_for('showRestaurants'))
+
+@app.route('/disconnect')
+def disconnect():
+	if 'provider' in login_session:
+		if login_session['provider'] == 'google':
+			gdisconnect()
+			del login_session['gplus_id']
+			del login_session['credentials']
+		if login_session['provider'] == 'facebook':
+			fbdisconnect()
+			del login_session['facebook_id']
+		del login_session['username']
+		del login_session['email']
+		del login_session['picture']
+		del login_session['user_id']
+		del login_session['provider']
+		flash ('Succesfully disconnected')
+		return redirect(url_for('showRestaurants'))
     
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
@@ -104,20 +115,13 @@ def gdisconnect():
 	h = httplib2.Http()
 	result = h.request(url, 'GET')[0]
 	if result['status'] == '200':
-		del login_session['credentials']
-		del login_session['gplus_id']
-		del login_session['username']
-		del login_session['email']
-		del login_session['picture']
 		response = make_response(json.dumps('Succesfully disconnected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
-		flash ('Succesfully disconnected') 
-		return redirect(url_for('showRestaurants'))
+		return response
 	else:
 		response = make_response('Failed to revoke token for given user', 400)
 		response.headers['Content-Type'] = 'application/json'
-		flash ('Failed to revoke token for given user') 
-		return redirect(url_for('showLogin'))
+		return response
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -156,6 +160,7 @@ def gconnect():
 	if stored_credentials is not None and gplus_id == stored_gplus_id:
 		response = make_response(json.dumps('Current user is already connected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
+	login_session['provider'] = 'google'
 	login_session['credentials'] = credentials
 	login_session['gplus_id'] = gplus_id
 	userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
