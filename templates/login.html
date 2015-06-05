@@ -29,11 +29,9 @@
 				data-accesstype="offline" 
 				data-cookiepolicy="single_host_origin" 
 				data-callback="signInCallback" 
-				data-approvalprompt="force">
+				data-approvalprompt="auto">
 			</span>
 		</div>
-		<div id="result"></div>
-
 		<script type="text/javascript">
 			function signInCallback(authResult) {
 				if (authResult['code']) {
@@ -48,7 +46,7 @@
 					        if (result) {
 					        	$('#result').html('<div class="loginsuccess">'+ result + '</br></br>Redirecting...</div>')
 					        	setTimeout(function() {
-					        	window.location.href = "/restaurants";}, 4000);
+					        	window.location.href = "/";}, 4000);
 					    	} else if (authResult['error']) {
 					    		console.log('There was an error: ' + authResult['error']);
 					    	} else {
@@ -59,55 +57,46 @@
 				}
 			}
 		</script>
-
 		<!-- End GOOGLE login -->
-
 
 		<!--FACEBOOK SIGN IN -->
 		<script>
 			window.fbAsyncInit = function() {
-		  	FB.init({
-		    	appId      : '1442920109343255',
-		    	cookie     : true,
-		    	xfbml      : true,  
-		    	version    : 'v2.2' 
-		  	});
-		  };
-		  
-		  (function(d, s, id) {
-		    var js, fjs = d.getElementsByTagName(s)[0];
-		    if (d.getElementById(id)) return;
-		    js = d.createElement(s); js.id = id;
-		    js.src = "//connect.facebook.net/en_US/sdk.js";
-		    fjs.parentNode.insertBefore(js, fjs);
-		  }(document, 'script', 'facebook-jssdk'));
-		  // Here we run a very simple test of the Graph API after login is
-		  // successful.  See statusChangeCallback() for when this call is made.
-		  function sendTokenToServer() {
-		    var access_token = FB.getAuthResponse()['accessToken'];
-		    console.log(access_token)
-		    console.log('Welcome!  Fetching your information.... ');
-		    FB.api('/me', function(response) {
-		      console.log('Successful login for: ' + response.name);
-		     $.ajax({
-		      type: 'POST',
-		      url: '/fbconnect?state={{STATE}}',
-		      processData: false,
-		      data: access_token,
-		      contentType: 'application/octet-stream; charset=utf-8',
-		      success: function(result) {
-		        if (result) {
-		          $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
-		         setTimeout(function() {
-		          window.location.href = "/";
-		         }, 4000);
-		      } else {
-		        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
-		         }
-		      }
-		  });
-		    });
-		  }
+		  		FB.init({
+		    		appId      : '1442920109343255',
+		    		cookie     : true,
+		    		xfbml      : true,  
+		    		version    : 'v2.2' 
+		  		});
+		  	};  
+		  	(function(d, s, id) {
+		  		var js, fjs = d.getElementsByTagName(s)[0];
+		    	if (d.getElementById(id)) return;
+		    	js = d.createElement(s); js.id = id;
+		    	js.src = "//connect.facebook.net/en_US/sdk.js";
+		    	fjs.parentNode.insertBefore(js, fjs);
+		  	}(document, 'script', 'facebook-jssdk'));
+		  	function sendTokenToServer() {
+		    	var access_token = FB.getAuthResponse()['accessToken'];
+		    	FB.api('/me', function(response) {
+			     	$.ajax({
+			      		type: 'POST',
+			      		url: '/fbconnect?state={{STATE}}',
+			      		processData: false,
+			      		data: access_token,
+			      		contentType: 'application/octet-stream; charset=utf-8',
+			      		success: function(result) {
+			        		if (result) {
+			          			$('#result').html('<div class="loginsuccess">'+ result + '</br></br>Redirecting...</div>')
+			         			setTimeout(function() {
+			          			window.location.href = "/";}, 4000);
+			      			} else {
+			        			$('#result').html('Failed to make a server-side call. Check your configuration and console.');
+			         		}
+			      		}
+			  		});
+		    	});
+			}
 		</script>
 		<button>
 			<fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
@@ -115,6 +104,7 @@
 			</fb:login-button>
 		</button>
 		<!--END FACEBOOK SIGN IN -->
+		<div id="result"></div>
 	</div>
 </div>
 </body>
