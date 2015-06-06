@@ -20,4 +20,6 @@ Oauth2
 
 ## Running info
 
-python finalproject.py
+run python dabase_setup.py for setting up the database
+
+run python finalproject.py
