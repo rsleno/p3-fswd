@@ -3,27 +3,24 @@
 	finalproject
 	~~~~~~~~~~~~
 
-	A brief description goes here.
+	Server-side application that manages a list of restaurants and its menus.
 
 """
 
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response
+from flask import session as login_session
 app = Flask(__name__)
-
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem, User
-
-from flask import session as login_session
-import random, string
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
+from database_setup import Base, Restaurant, MenuItem, User
 import httplib2
 import json
-from flask import make_response
 import requests
 
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Restaurant Menu Application"
 
 #: Create session and connect db
 engine = create_engine('sqlite:///restaurantMenu.db')
@@ -32,15 +29,9 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-@app.route('/fbdisconnect')
-def fbdisconnect():
-    facebook_id = login_session['facebook_id']
-    url = 'https://graph.facebook.com/%s/permissions' % facebook_id
-    h = httplib2.Http()
-    result = h.request(url, 'DELETE')[1]
-
 @app.route('/disconnect')
 def disconnect():
+	""" Calls unlog functions depending provider and redirects home """
 	if 'provider' in login_session:
 		if login_session['provider'] == 'google':
 			gdisconnect()
@@ -56,9 +47,18 @@ def disconnect():
 		del login_session['provider']
 		flash ('Succesfully disconnected')
 		return redirect(url_for('showRestaurants'))
+
+@app.route('/fbdisconnect')
+def fbdisconnect():
+	""" Unlog facebook login function """
+    facebook_id = login_session['facebook_id']
+    url = 'https://graph.facebook.com/%s/permissions' % facebook_id
+    h = httplib2.Http()
+    result = h.request(url, 'DELETE')[1]
     
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
+	""" Login with facebook function """
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -105,6 +105,7 @@ def fbconnect():
 
 @app.route('/gdisconnect')
 def gdisconnect():
+	""" Unlog google login function """
 	credentials = login_session.get('credentials')
 	if credentials is None:
 		response = make_response(json.dumps('Current user not connected.'), 401)
@@ -125,6 +126,7 @@ def gdisconnect():
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+	""" Login with google function """
 	if request.args.get('state') != login_session['state']:
 		response = make_response(json.dumps('Invalid state parameter'), 401)
 		response.headers['Content-Type'] = 'application/json'
@@ -167,16 +169,13 @@ def gconnect():
 	params = {'access_token': credentials.access_token, 'alt': 'json'}
 	answer = requests.get(userinfo_url, params=params)
 	data = json.loads(answer.text)
-
 	login_session['username'] = data["name"]
 	login_session['picture'] = data["picture"]
 	login_session['email'] = data["email"]
-
 	user_id = getUserID(login_session['email'])
 	if not user_id:
 		user_id = createUser(login_session)
 	login_session['user_id'] = user_id
-
 	output = ''
 	output += 'Welcome, '
 	output += login_session['username']
@@ -189,18 +188,21 @@ def gconnect():
 
 @app.route('/login/')
 def showLogin():
+	""" Create random state and load login """
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
 	login_session['state'] = state
 	return render_template('login.html', STATE=state)
 
 @app.route('/restaurants/JSON/')
 def restaurantsJSON():
+	""" Creates json of restaraurants """
 	restaurants = session.query(Restaurant).all()
 	return jsonify(Restaurants=[restaurant.serialize for restaurant in restaurants])
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON/')
 def restaurantMenuJSON(restaurant_id):
+	""" Creates json of restaurant menu items given restaurant_id """
 	items = session.query(MenuItem).filter_by(
 		restaurant_id=restaurant_id).all()
 	return jsonify(MenuItems=[item.serialize for item in items])
@@ -208,6 +210,7 @@ def restaurantMenuJSON(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON/')
 def menuItemJSON(restaurant_id, menu_id):
+	""" Creates json of restaurant menu item given restaurant_id and menu_id """
 	item = session.query(MenuItem).filter_by(id=menu_id).one()
 	return jsonify(MenuItem=item.serialize)
 
@@ -346,6 +349,7 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 
 def getUserID(email):
+	""" Returns user.id for a given email """
 	try:
 		user = session.query(User).filter_by(email=email).one()
 		return user.id
@@ -354,10 +358,12 @@ def getUserID(email):
 
 
 def getUserInfo(user_id):
+	""" Returns user of a given user_id """
 	user = session.query(User).filter_by(id=user_id).one()
 	return user
 
 def createUser(login_session):
+	""" Create new user given login_session """
 	newUser = User(name = login_session['username'], 
 		email = login_session['email'],
 		picture = login_session['picture'])
