@@ -56,7 +56,7 @@ Set up a virtual environment with a provisioned VM with [vagrant](https://www.va
 
 2. Once a project is created you need to generate OAuth ClientId in credentials
 
-3. Click on ``` download json ``` to download the json file, call it client_secrets.json and store it in your project
+3. Click on ` download json ` to download the json file, call it client_secrets.json and store it in your project
 
 4. In login.html give the client id to
 ``` data-clientid = "YOU_CLIENT_ID" ```
@@ -66,7 +66,7 @@ Set up a virtual environment with a provisioned VM with [vagrant](https://www.va
 
 1. In order to connect with facebook, you will need to create an app in https://developers.facebook.com/
 
-2. Create a file and call it fb_client_secrets.json
+2. Create a file, call it fb_client_secrets.json and store it in your project
 ```
 {
   "web": {
@@ -76,14 +76,13 @@ Set up a virtual environment with a provisioned VM with [vagrant](https://www.va
 }
 ```
 
-3. In login.html give the appId to
-``` appId = "YOUR_APP_ID ```
+3. In login.html give the appId to ` appId = "YOUR_APP_ID" `
 
 
 ## Running info
 
-run `python dabase_setup.py` to set up the database
+run ` python dabase_setup.py ` to set up the database
 
-run `python lotsofmenus.py` to provide test data 
+run ` python lotsofmenus.py ` to provide test data 
 
-run `python finalproject.py` to run the app
+run ` python finalproject.py ` to run the app
