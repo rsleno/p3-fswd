@@ -86,3 +86,12 @@ run ` python dabase_setup.py ` to set up the database
 run ` python lotsofmenus.py ` to provide test data 
 
 run ` python finalproject.py ` to run the app
+
+
+## API
+
+All restaurants ` /restaurants/JSON/ `
+
+All restaurant menu items for a given restaurant_id ` /restaurants/<int:restaurant_id>/menu/JSON/ `
+
+Restaurant menu item for a given restaurant_id and menu_id ` /restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON/ `
