@@ -6,7 +6,6 @@
     Server-side application that manages a list of restaurants and its menus.
 
 """
-from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import jsonify, make_response
 from flask import session as login_session
