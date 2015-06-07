@@ -66,7 +66,7 @@ Set up a virtual environment with a provisioned VM with [vagrant](https://www.va
 
 1. In order to connect with facebook, you will need to create an app in https://developers.facebook.com/
 
-2. Create a file and call it fb_client_secrets.json:
+2. Create a file and call it fb_client_secrets.json
 ```
 {
   "web": {
@@ -82,6 +82,8 @@ Set up a virtual environment with a provisioned VM with [vagrant](https://www.va
 
 ## Running info
 
-run python dabase_setup.py for setting up the database
+run `python dabase_setup.py` to set up the database
 
-run python finalproject.py
+run `python lotsofmenus.py` to provide test data 
+
+run `python finalproject.py` to run the app
