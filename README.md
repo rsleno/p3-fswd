@@ -11,21 +11,41 @@ This program is the third project of the Full Stack Developer Nanodegree from [U
 Python (version 2.7)
 
 flask
-
 Flask-login
-
 sqlalchemy
-
 oauth2client
-
 requests
-
 httplib2
-
-werkzeug
 
 
 ## Configuration
+
+You can set up your environment manually or use a provisioned virtual environment:
+
+#### Setting up the environment
+```
+apt-get install python-sqlalchemy
+apt-get install python-pip
+
+pip install flask
+pip install Flask-Login
+pip install oauth2client
+pip install requests
+pip install httplib2
+```
+
+#### Setting up a virtual environment with Vagrant
+
+You can set up a virtual environment with a provisioned VM with [vagrant](https://www.vagrantup.com/):
+
+1. Start up a VM as configured by the default Vagrantfile
+``` vagrant up ```
+
+2. Ssh into it
+``` vagrant ssh ```
+
+
+## OAuth Configuration
 
 #### Setting up Google authentification:
 
@@ -35,8 +55,9 @@ werkzeug
 
 3. Click on ``` download json ``` to download the json file, call it client_secrets.json and store it in your project
 
-4. in login.html give the client id to
+4. In login.html give the client id to
 ``` data-clientid = "YOU_CLIENT_ID" ```
+
 
 #### Setting up Facebook authentification:
 
@@ -55,20 +76,8 @@ werkzeug
 3. In login.html give the appId to
 ``` appId = "YOUR_APP_ID ```
 
+
 ## Running info
-
-#### Running with Vagrant
-
-You can run the app in a provisioned virtual environment with [vagrant](https://www.vagrantup.com/):
-
-1. Start up a VM as configured by the default Vagrantfile
-``` vagrant up ```
-
-2. Ssh into it
-``` vagrant ssh ```
-
-3. Go to working dir
-``` cd /vagrant ```
 
 run python dabase_setup.py for setting up the database
 
