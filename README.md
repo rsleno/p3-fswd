@@ -8,14 +8,14 @@ This program is the third project of the Full Stack Developer Nanodegree from [U
 
 ## Requirements
 
-*Python (version 2.7)
+Python (version 2.7)
 
-*flask
-*Flask-login
-*sqlalchemy
-*oauth2client
-*requests
-*httplib2
+flask  
+Flask-login  
+sqlalchemy  
+oauth2client  
+requests  
+httplib2
 
 
 ## Configuration
