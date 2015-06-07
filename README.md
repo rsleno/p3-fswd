@@ -11,16 +11,23 @@ This program is the third project of the Full Stack Developer Nanodegree from [U
 Python (version 2.7)
 
 flask
+
 Flask-login
+
 sqlalchemy
+
 oauth2client
+
 requests
+
 httplib2
+
 werkzeug
+
 
 ## Configuration
 
-### Setting up Google authentification:
+#### Setting up Google authentification:
 
 1. In order to connect with google, you will need to create a project in https://console.developers.google.com/
 
@@ -31,7 +38,7 @@ werkzeug
 4. in login.html give the client id to
 ``` data-clientid = "YOU_CLIENT_ID" ```
 
-### Setting up Facebook authentification:
+#### Setting up Facebook authentification:
 
 1. In order to connect with facebook, you will need to create an app in https://developers.facebook.com/
 
@@ -50,7 +57,7 @@ werkzeug
 
 ## Running info
 
-### Running with Vagrant
+#### Running with Vagrant
 
 You can run the app in a provisioned virtual environment with [vagrant](https://www.vagrantup.com/):
 
