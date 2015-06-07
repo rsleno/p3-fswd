@@ -8,21 +8,24 @@ This program is the third project of the Full Stack Developer Nanodegree from [U
 
 ## Requirements
 
-Python (version 2.7)
+*Python (version 2.7)
 
-flask
-Flask-login
-sqlalchemy
-oauth2client
-requests
-httplib2
+*flask
+*Flask-login
+*sqlalchemy
+*oauth2client
+*requests
+*httplib2
 
 
 ## Configuration
 
-You can set up your environment manually or use a provisioned virtual environment:
+You can either set up your environment or use a provisioned virtual environment:
 
 #### Setting up the environment
+
+Install the following software requirements:
+
 ```
 apt-get install python-sqlalchemy
 apt-get install python-pip
@@ -36,7 +39,7 @@ pip install httplib2
 
 #### Setting up a virtual environment with Vagrant
 
-You can set up a virtual environment with a provisioned VM with [vagrant](https://www.vagrantup.com/):
+Set up a virtual environment with a provisioned VM with [vagrant](https://www.vagrantup.com/):
 
 1. Start up a VM as configured by the default Vagrantfile
 ``` vagrant up ```
