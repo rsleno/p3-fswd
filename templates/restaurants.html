@@ -11,8 +11,8 @@
 	</div>
 	<div class="menu">
 		<ul>
-			<li class="left"><a href="{{ url_for('showRestaurants') }}">Home</a></li>
-			<li class="left"><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
+			<li class="left"><a href="{{ url_for('showrestaurants') }}">Home</a></li>
+			<li class="left"><a href="{{ url_for('newrestaurant') }}">New Restaurant</a></li>
 			<li class="right"><a href="{{ url_for('disconnect') }}">Unlog</a></li>
 		</ul>
 	</div>
@@ -31,12 +31,12 @@
 		<h2>Restaurant list</h2>
 		{% for restaurant in restaurants %}
 		<ul class = "list">
-			<li><a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
+			<li><a href="{{ url_for('showmenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
 			<div class="links">
-				<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a>
+				<a href="{{ url_for('showmenu', restaurant_id = restaurant.id) }}">Menu</a>
 				{% if restaurant.user_id == login_session %} |
-					<a href="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}">Edit</a> | 
-					<a href="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}">Delete</a>
+					<a href="{{ url_for('editrestaurant', restaurant_id = restaurant.id) }}">Edit</a> | 
+					<a href="{{ url_for('deleterestaurant', restaurant_id = restaurant.id) }}">Delete</a>
 				{% endif %}
 			</div>
 

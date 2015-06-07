@@ -11,12 +11,11 @@
 	</div>
 	<div class="menu">
 		<ul>
-			<li class="left"><a href="{{ url_for('showRestaurants') }}">Home</a></li>
-			<li class="left"><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
-			<li class="right"><a href="{{ url_for('gdisconnect') }}">Unlog</a></li>
+			<li class="left"><a href="{{ url_for('showrestaurants') }}">Home</a></li>
+			<li class="left"><a href="{{ url_for('newrestaurant') }}">New Restaurant</a></li>
 		</ul>
 	</div>
-	<form action="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" method="post">
+	<form action="{{ url_for('newmenuitem', restaurant_id = restaurant.id) }}" method="post">
 		<label>Name:</label>
 		<input type="text" size="30" name="name" placeholder="Menu item name" />
 		<label>Description:</label>
@@ -31,7 +30,7 @@
 			<input type="radio" name="course" value="Beverage" /> Beverage
 		</div>
 		<input type="submit" value="Create" class="button submit" />
-		<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="button cancel">Cancel</a>
+		<a href="{{ url_for('showmenu', restaurant_id = restaurant.id) }}" class="button cancel">Cancel</a>
 	</form>
 </div>
 </body>

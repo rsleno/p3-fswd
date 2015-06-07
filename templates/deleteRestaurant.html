@@ -11,15 +11,15 @@
 	</div>
 	<div class="menu">
 		<ul>
-			<li class="left"><a href="{{ url_for('showRestaurants') }}">Home</a></li>
-			<li class="left"><a href="{{ url_for('newRestaurant') }}">New Restaurant</a></li>
-			<li class="right"><a href="{{ url_for('gdisconnect') }}">Unlog</a></li>
+			<li class="left"><a href="{{ url_for('showrestaurants') }}">Home</a></li>
+			<li class="left"><a href="{{ url_for('newrestaurant') }}">New Restaurant</a></li>
+			<li class="right"><a href="{{ url_for('disconnect') }}">Unlog</a></li>
 		</ul>
 	</div>
-	<form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method="post">
+	<form action="{{ url_for('deleterestaurant', restaurant_id = restaurant.id) }}" method="post">
 		<p>Are you sure you want to delete <strong>{{ restaurant.name }}</strong> restaurant?</p>
 		<input type="submit" value="Delete" class="button submit" />
-		<a href="{{ url_for('showRestaurants') }}" class="button cancel">Cancel</a>
+		<a href="{{ url_for('showrestaurants') }}" class="button cancel">Cancel</a>
 	</form>
 </div>
 </body>

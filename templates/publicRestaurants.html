@@ -11,8 +11,8 @@
 	</div>
 	<div class="menu">
 		<ul>
-			<li class="left"><a href="{{ url_for('showRestaurants') }}">Home</a></li>
-			<li class="right"><a href="{{ url_for('showLogin') }}">Login</a></li>
+			<li class="left"><a href="{{ url_for('showrestaurants') }}">Home</a></li>
+			<li class="right"><a href="{{ url_for('showlogin') }}">Login</a></li>
 		</ul>
 	</div>
 	<div class="flash">
@@ -30,10 +30,9 @@
 		<h2>Restaurant list</h2>
 		{% for restaurant in restaurants %}
 		<ul class = "list">
-			<li><a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
-
+			<li><a href="{{ url_for('showmenu', restaurant_id = restaurant.id) }}" class="rname">{{ restaurant.name }}</a></li>
 			<div class="links">
-				<a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a>
+				<a href="{{ url_for('showmenu', restaurant_id = restaurant.id) }}">Menu</a>
 			</div>
 
 		</ul>
