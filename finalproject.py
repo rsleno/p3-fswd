@@ -6,7 +6,7 @@
     Server-side application that manages a list of restaurants and its menus.
 
 """
-
+from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import jsonify, make_response
 from flask import session as login_session
@@ -238,7 +238,7 @@ def showrestaurants():
         return render_template('publicRestaurants.html', restaurants=restaurants)
     else:
         return render_template('restaurants.html', restaurants=restaurants, 
-            login_session=login_session['user_id'])
+        login_session=login_session['user_id'])
 
 
 @app.route('/restaurant/new', methods=['GET', 'POST'])
@@ -280,6 +280,8 @@ def editrestaurant(restaurant_id):
 def deleterestaurant(restaurant_id):
     """ Delete restaurant """
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    menuItems = session.query(MenuItem).filter_by(
+        restaurant_id=restaurant_id).all()
     if 'username' not in login_session:
         return redirect('/login')
     if restaurant.user_id != login_session['user_id']:
@@ -287,6 +289,8 @@ def deleterestaurant(restaurant_id):
             "alert('You are not authorized to perform this action');" \
             "window.location = '/'}</script><body onload='myFunction()'>"
     if request.method == 'POST':
+        for item in menuItems:
+            session.delete(item)
         session.delete(restaurant)
         session.commit()
         flash("%s restaurant succesfully deleted" % restaurant.name)
@@ -314,6 +318,12 @@ def showmenu(restaurant_id):
 def newmenuitem(restaurant_id):
     """ Create a new menu in a restaurant restaurant_id given """
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if restaurant.user_id != login_session['user_id']:
+        return "<script>function myFunction() {" \
+            "alert('You are not authorized to perform this action');" \
+            "window.location = '/'}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         newItem = MenuItem(
             name=request.form["name"], 
@@ -336,6 +346,12 @@ def editmenuitem(restaurant_id, menu_id):
     """ Edit menu item from a restaurant menu restaurant_id and menu_id given """
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     item = session.query(MenuItem).filter_by(id=menu_id).one()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if restaurant.user_id != login_session['user_id']:
+        return "<script>function myFunction() {" \
+            "alert('You are not authorized to perform this action');" \
+            "window.location = '/'}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form['name']:
             item.name = request.form["name"]
@@ -359,6 +375,12 @@ def deletemenuitem(restaurant_id, menu_id):
     """ Delete menu item from a restaurant menu restaurant_id and menu_id given """
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     item = session.query(MenuItem).filter_by(id=menu_id).one()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if restaurant.user_id != login_session['user_id']:
+        return "<script>function myFunction() {" \
+            "alert('You are not authorized to perform this action');" \
+            "window.location = '/'}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(item)
         session.commit()
